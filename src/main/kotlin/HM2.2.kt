@@ -1,13 +1,13 @@
 fun main() {
-    val likes = 21000121
+    val likes = 42
     val ludyam = "людям."
     val cheloveku = "человеку"
     var str = "Понравилось $likes "
-    if (likes % 100 != 11 && likes != 11 ) {
+    if (likes % 10 == 1 && likes != 11 && likes % 100 != 11) {
         println(str + cheloveku)
-    } else if (likes == 11){
+    } else if(likes % 100 != 11){
         println(str + ludyam)
-    } else{
+    }else{
         println(str + ludyam)
     }
 
