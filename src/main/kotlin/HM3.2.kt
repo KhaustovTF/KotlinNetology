@@ -3,33 +3,39 @@ val monthLimit = 600_000
 
 fun main() {
     //MasterCard, Visa, Mir
-    val cardType = "MasterCard"
-    val transfer = 79_000
-    var transferInMonth = 0
+//    val cardType = "MasterCard"
+//    val transfer = 77_000
+//    var transferInMonth = 0
+//
+//    if (algoritmRascheta(cardType,transfer,transferInMonth) < 0) {
+//        println("Операция невозможна. Превышен Лимит.")
+//    }else {
+//        transferInMonth += transfer + algoritmRascheta("Mir",transfer,transferInMonth)
+//        println("Комиссия = " + (transferInMonth - transfer))
+//    }
 
-    if (algoritmRascheta(cardType,transfer,transferInMonth) < 0) {
+    val commision = algoritmRascheta("MasterCard", 70_000, 75_000)
+    if (commision  < 0) {
         println("Операция невозможна. Превышен Лимит.")
-    }else {
-        transferInMonth += transfer + algoritmRascheta("MasterCard",transfer,0)
-        println("Комиссия = " + (transferInMonth - transfer))
+    }else{
+        println("Комиссия = " + commision)
     }
 
 
 
-
-    println("spends in month = " + transferInMonth)
+//    println("spends in month = " + transferInMonth)
 
 
 }
 
 
-fun algoritmRascheta(cardType: String, transfer: Int, transferInMonth: Int): Int {
+fun algoritmRascheta(cardType: String, transfer: Int, transferInMonth: Int ): Int {
     when(cardType) {
         "MasterCard" -> if ((transfer > dailyLimit
 //                    || transferInMonth > monthLimit
                     || (transfer + transferInMonth) > monthLimit) ){
             return -1
-        }else if ((transfer) < 75_000 || (transferInMonth + transfer) < 75_000) {
+        }else if ((transferInMonth + transfer) < 75_000) {
             return 0
         }else if (transferInMonth > 75_000){
             return ((transfer * 0.006) + 20).toInt()
@@ -37,7 +43,7 @@ fun algoritmRascheta(cardType: String, transfer: Int, transferInMonth: Int): Int
             return if (transferInMonth < 75_000 && (transferInMonth + transfer) > 75_000){
                 return ((((transferInMonth + transfer) - 75_000)* 0.006) + 20).toInt()
             }else{
-                return (((transfer - 75_000)* 0.006) + 20).toInt()
+                return ((((transferInMonth + transfer) - 75_000)* 0.006) + 20).toInt()
             }
         }
         "Visa" -> if ((transfer > dailyLimit
