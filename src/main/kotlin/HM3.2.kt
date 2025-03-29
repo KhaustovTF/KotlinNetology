@@ -14,7 +14,7 @@ fun main() {
 //        println("Комиссия = " + (transferInMonth - transfer))
 //    }
 
-    val commision = algoritmRascheta("MasterCard", 70_000, 75_000)
+    val commision = algoritmRascheta()
     if (commision  < 0) {
         println("Операция невозможна. Превышен Лимит.")
     }else{
@@ -29,22 +29,22 @@ fun main() {
 }
 
 
-fun algoritmRascheta(cardType: String, transfer: Int, transferInMonth: Int ): Int {
+fun algoritmRascheta(cardType: String = "MasterCard", transfer: Int = 35_000, transferInMonth: Int = 40_000 ): Int {
     when(cardType) {
         "MasterCard" -> if ((transfer > dailyLimit
 //                    || transferInMonth > monthLimit
                     || (transfer + transferInMonth) > monthLimit) ){
             return -1
-        }else if ((transferInMonth + transfer) < 75_000) {
+        }else if ((transferInMonth + transfer) <= 75_000) {
             return 0
         }else if (transferInMonth > 75_000){
             return ((transfer * 0.006) + 20).toInt()
         }else{
-            return if (transferInMonth < 75_000 && (transferInMonth + transfer) > 75_000){
+//            return if (transferInMonth < 75_000 && (transferInMonth + transfer) > 75_000){
                 return ((((transferInMonth + transfer) - 75_000)* 0.006) + 20).toInt()
-            }else{
-                return ((((transferInMonth + transfer) - 75_000)* 0.006) + 20).toInt()
-            }
+//            }else{
+//                return ((((transferInMonth + transfer) - 75_000)* 0.006) + 20).toInt()
+//            }
         }
         "Visa" -> if ((transfer > dailyLimit
 //                    || transferInMonth > monthLimit
